@@ -1,0 +1,38 @@
+{% from 'macros/plant_macro.html' import plant_list %}
+
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 m-auto">
+                <h3 class="page-title text-center">{{ title }}</h3>
+            </div>
+            <div class="col-sm-6 col-lg-9 m-auto">
+                <div class="row mt-2">
+                    <div class="col-12 col-lg mb-2 mb-lg-0">
+                        <input type="text" class="form-control form-control-lg" id="myInput" onkeyup="plantFilterByCompany()" placeholder="Filter by company">
+                    </div>
+                    <div class="col-12 col-lg mb-2 mb-lg-0">
+                        <select class="form-control form-control-lg" id="mySelect" onchange="plantFilterByStatus()" aria-label="Default select example">
+                            <option selected>Filter by status</option>
+                            <option value="plant-list-healthy">Healthy</option>
+                            <option value="plant-list-alert">Alert</option>
+                            <option value="plant-list-danger">Danger</option>
+                        </select>
+                    </div>
+                {% if supervisor %}
+                    <div class="col-12 col-lg mb-2 mb-lg-0 text-center">
+                        <a class="link" href="{{ url_for('supervisors.create_plant') }}">ADD PLANT</a>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="all-plants-list">
+        {% for plant in plants %}
+            {{ plant_list(plant, plant_errors[loop.index-1]) }}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,445 @@
+h1, h2, h3, h4, h5, h6, legend, label, small, a, p, input {
+    color: #66916E;
+    font-family: 'Quicksand', sans-serif;
+}
+
+select {
+    color: #66916E!important;
+    font-family: 'Quicksand', sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+::placeholder {
+    color: #66916E!important;
+}
+
+/* Styling Anchor Tags. */
+a {
+    text-decoration: underline;
+}
+
+/* When you mouse over anchor tags, change their color */
+a:hover {
+    color: #8d8d8d;
+    text-decoration: none;
+}
+
+.text-muted {
+    color: #89BD90!important;
+}
+
+.card, .form-control, .plant-list-healthy, .company-list-active {
+    border: 2px solid;
+    border-color: #89BD90;
+    border-radius: 1rem;
+}
+
+.form-control {
+    color: #66916E;
+}
+
+.submit-button {
+    padding: .5rem 1rem;
+    height: calc(1.5em + 1rem + 2px);
+    width: 100%;
+    border: 2px solid;
+    border-color: #89BD90;
+    border-radius: 1rem;
+    background-color: #89BD90;
+    color: white;
+    text-decoration: none;
+}
+
+label {
+    font-size: 18px;
+}
+
+.link {
+    padding: .5rem 1rem;
+    height: calc(1.5em + 1rem + 2px);
+    width: 100%;
+    border: 2px solid;
+    border-color: #89BD90;
+    border-radius: 1rem;
+    background-color: #89BD90;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.25rem;
+}
+
+.link-selected {
+    border-color: #5dbff0;
+    background-color: #5dbff0;
+}
+
+.link-danger {
+    border-color: #F0695D;
+    background-color: #F0695D;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+}
+
+.overseed-logo {
+    color: white;
+    font-size: larger;
+}
+
+/* CHECKMARK STYLING
+
+In CSS, checkmarks can't be styled, so instead we use another <label> tag.
+
+This <label> has no text and has the .checkmark class.
+
+The reason I'm using a <label> rather than a span is so the <label> is 
+clickable, which a span isn't.
+
+*/
+
+/* The div which all the checkbox elements are contained within */
+.form-check {
+    padding: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+/* First disappear the original checkbox */
+.form-check input  {
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+}
+
+/* Then styling for the <label> that replaces the checkbox */
+.checkmark {
+    position: relative;
+    height:25px;
+    width:25px;
+    background-color:white;
+    border: 2px solid;
+    border-color: #66916E;
+    border-radius: 0.25rem;
+    margin-bottom: 0;
+    display: flex;
+}
+
+/* On mouse-over of the original checkbox (including any <label>s for that 
+checkbox), add a grey background color. */
+
+@media only screen and (min-width: 1200px) {
+    .form-check:hover .checkmark {
+        background-color: #ccc;
+    }
+}
+
+/* Style the checked checkbox <label> */
+/* As the label is contained in another div after the */
+/* input we have to be more specific */
+.form-check input:checked ~ div .checkmark {
+    background-color: #5dbff0;
+    color: #5dbff0;
+}
+
+/* Finally, style the true <label> so that there is some margin between the
+checkbox and the real label. */
+.form-check-label {
+    margin-left: 0.5rem;
+}
+
+
+
+.form-radio {
+    margin-bottom: 1rem;
+}
+
+.form-radio input {
+    appearance: none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.radiomark {
+    position: relative;
+    background-color:white;
+    border: 2px solid;
+    border-color: #66916E;
+    border-radius: 1rem;
+    display: flex;
+    pointer-events: none;
+}
+
+.form-radio input:checked + .radiomark {
+    border: 4px solid;
+    border-color: #5dbff0;
+    border-radius: 1rem;
+}
+
+.form-radio input:checked + .radiomark h4 {
+    color: #5dbff0;
+}
+
+input:disabled {
+    border: 2px solid;
+    border-color: #A8A8A8;
+    background-color: white;
+    color: #A8A8A8;
+    pointer-events: none;
+}
+
+.underlay {
+    display: block;
+    width: 100%;
+    height: 75%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+}
+
+/* Error messages */
+.error-message {
+    color: #F0695D;
+}
+
+/* Disabled input fields */
+input:disabled {
+    border: 2px solid;
+    border-color: #A8A8A8;
+    background-color: white;
+    color: #A8A8A8;
+    pointer-events: none;
+}
+
+
+/* 
+Sidebar styling
+*/
+
+
+/* Make the menu fixed to the top of the page */
+header {
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 15; /* Stay on top */
+    top: 0; /* Stay at the top */
+    background-color: #89BD90;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    right: 0px;
+    box-shadow: 5px 0px 30px -5px #00000099;
+}
+
+/* Style the burger menu */
+nav .btn {
+    color: white;
+    font-size: larger;
+}
+  
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+nav p {
+    color: white;
+}
+  
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* These stylings make inactive users greyed out */
+.user-list-inactive {
+    border: 2px solid;
+    border-color: #A8A8A8;
+    border-radius: 1rem;
+}
+
+.user-list-inactive .link {
+    background-color: #A8A8A8;
+    border-color: #A8A8A8;
+}
+
+.user-list-inactive h4, .user-list-inactive h5, .user-list-inactive h6 {
+    color: #A8A8A8;
+}
+
+/* These stylings make inactive companies greyed out */
+.company-list-inactive {
+    border: 2px solid;
+    border-color: #A8A8A8;
+    border-radius: 1rem;
+}
+
+.company-list-inactive .link {
+    background-color: #A8A8A8;
+    border-color: #A8A8A8;
+}
+
+.company-list-inactive h4 {
+    color: #A8A8A8;
+}
+
+.company-logos {
+    height: 75px;
+}
+
+
+/* These stylings affect how Alert Plant Cards look. */
+.plant-list-alert h4, .plant-list-alert h5, .plant-list-alert h6 {
+    color: #F7A17C;
+}
+
+.plant-list-alert .link {
+    background-color: #F7A17C;
+    border: #F7A17C;
+}
+
+.plant-list-alert {
+    border: 2px solid;
+    border-color: #F7A17C;
+    border-radius: 1rem;
+}
+
+/* Same as above, but for Danger Plant cards */
+.plant-list-danger h4, .plant-list-danger h5, .plant-list-danger h6 {
+    color: #F0695D;
+}
+
+.plant-list-danger .link {
+    background-color: #F0695D;
+    border: #F0695D;
+}
+
+.plant-list-danger {
+    border: 2px solid;
+    border-color: #F0695D;
+    border-radius: 1rem;
+}
+
+/* Default hide the ascending and descending lists. */
+#company-ascending-list, #company-descending-list {
+    display: none;
+}
+
+/* Somehow the Bootstrap footer class is not automatically applied, so I make this section */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+}
+  
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-width: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/*
+These are the 4 greens I use so far, from light to dark.
+#89BD90
+#66916E
+#43654C
+#223E2B
+*/
+
+/* Used to style the background of navbar. */
+nav.bg-green {
+    background-color: #89BD90;
+    z-index: 0;
+}
+
+@media screen and (max-width: 450px) {
+    nav.fixed-bottom {
+        display: none;
+    }
+}
+
+/* Styles the navbar links */
+.navbar a {
+    text-decoration: none;
+    color: white;
+}
+
+body {
+    padding-bottom: 60px;
+}
+
+.back-button {
+    height: 40px;
+    float: left;
+}
+
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: calc(1.5em + .75rem);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: white;
+    content: "Browse";
+    background-color: #89BD90;
+    border-left: inherit;
+    border-radius: 0 0.8rem 0.8rem 0;
+}
+
+.custom-file-label.is-invalid::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: calc(1.5em + .75rem);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: white;
+    content: "Browse";
+    background-color: #dc3545;
+    border-left: inherit;
+    border-radius: 0 0.8rem 0.8rem 0;
+}
+
+.file-feedback {
+    margin-top: .5rem
+}

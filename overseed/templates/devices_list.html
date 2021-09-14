@@ -1,0 +1,35 @@
+{% from 'macros/device_macro.html' import device_list %}
+
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 m-auto">
+                <h3 class="page-title text-center">{{ title }}</h3>
+            </div>
+
+            <div class="col-sm-6 col-lg-9 m-auto">
+                <div class="row">
+                    <div class="col-lg-2 mb-2 mb-lg-0"></div>
+                    <div class="col-lg-6 mb-2 mb-lg-0">
+                        <select class="form-control form-control-lg" id="mySelect" onchange="deviceFilterByCompName()" aria-label="Default select example">
+                            <option selected value="default">Filter by company name</option>
+                            {% for company in companies %}
+                                <option value="{{ company.name }}">{{ company.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-4 mb-2 mb-lg-0 text-center">
+                        <a class="link" href="{{ url_for('supervisors.create_device') }}">ADD DEVICE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="all-devices-list">
+        {% for device in devices %}
+            {{ device_list(device) }}
+        {% endfor %}
+    </div>
+{% endblock %}

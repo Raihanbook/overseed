@@ -1,0 +1,82 @@
+{% from 'macros/company_macro.html' import company_list %}
+{% from 'macros/modal_macro.html' import modal_company_del %}
+
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 m-auto">
+                <h3 class="page-title text-center">{{ title }}</h3>
+            </div>
+            <div class="col-sm-6 col-lg-9 m-auto">
+                <div class="row">
+                    <div class="col-lg-4 mb-2 mb-lg-0">
+                        <input type="text" class="form-control form-control-lg" id="myInput" onkeyup="companyFilterByName()" placeholder="Filter by name">
+                    </div>
+                    <div class="col-lg-4 mb-2 mb-lg-0">
+                        <select class="form-control form-control-lg" id="mySelect" onchange="companySortByName()" aria-label="Default select example">
+                            <option selected>Sort by name</option>
+                            <option value="a-z">A - Z</option>
+                            <option value="z-a">Z - A</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 mb-2 mb-lg-0 text-center">
+                        <a class="link" href="{{ url_for('supervisors.create_company') }}">ADD COMPANY</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="company-normal-list">
+        <div id="all-companies-list">
+            {% for company in companies_normal %}
+                {% if company.active == 1 %}
+                    <div class="container company-card company-list-active mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% elif not supervisor %}
+                    <div class="container company-card company-list-inactive mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div id="company-ascending-list">
+        <div id="all-companies-list">
+            {% for company in companies_ascending %}
+                {% if company.active == 1 %}
+                    <div class="container company-card company-list-active mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% else %}
+                    <div class="container company-card company-list-inactive mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div id="company-descending-list">
+        <div id="all-companies-list">
+            {% for company in companies_descending %}
+                {% if company.active == 1 %}
+                    <div class="container company-card company-list-active mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% else %}
+                    <div class="container company-card company-list-inactive mb-3">
+                        {{ company_list(company) }}
+                        {{ modal_company_del(company) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

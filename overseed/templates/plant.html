@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% import 'macros/plant_macro.html' as macros %}
+{% from 'macros/utils_macros.html' import back_button %}
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center">
+        <div class="row">
+            <div class="col-2">
+                {{ back_button() }}
+            </div>
+            <div class="col">
+                <h3>{{ plant.plant_type.name }}</h3>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        {% if errors|length == 1 %}
+            <h1 class="error-message">{{ errors[0] }}</h1>
+        {% else %}
+            {% for error in errors %}
+                <h2 class="error-message">{{ error }}</h2>
+            {% endfor %}
+        {% endif %}
+        <div class="row m-2 m-md-4">
+            <div class="col-6 col-lg-4 text-left ml-auto">
+                <p>Company:<br>{{ plant.company.name }}</p>
+                <div class="col-12 col-md-8">
+                    <img src="/static/company_icons/{{ plant.company.icon }}" class='img-fluid'>
+                </div>
+                <p>Location:<br>{{ plant.device.description }}</p>
+            </div>
+            <div class="col-6 col-lg-4 mr-auto">
+                {{ macros.plantOverlay(error_status, plant, error_icon) }}
+            </div>
+        </div>
+        <div class="row m-2 m-md-4">
+            <div class="col-12 col-md-6">
+                <form method="POST" action="">
+                    <div class="form-group">
+                        {% if plant.user == none %}
+                            <input class="submit-button" id="submit" name="submit" type="submit" value="TAKE JOB">
+                        {% elif plant.user_id == current_user.id %}
+                            <input class="submit-button mb-2" id="submit-disabled" name="submit" type="submit" value="TAKEN" disabled>
+                            <input class="submit-button" id="submit" name="submit" type="submit" value="MARK RESOLVED">
+                        {% else %}
+                            <input class="submit-button" id="submit" name="submit" type="submit" value="TAKEN BY {% filter upper %}{{ plant.user.first_name }}{% endfilter %}" disabled>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-6 text-left">
+                <p>Description: {{ plant.plant_type.description }}</p>
+                <p>Care Instructions: {{ plant.plant_type.care_instructions }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card m-2 m-md-4">
+            <div class="card-body">
+                {{ macros.plant_data(light_daily, light_monthly, 'Light', '#F7A17C', labels_daily, labels_monthly, "Total") }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card m-2 m-md-4">
+            <div class="card-body">
+                {{ macros.plant_data(moisture_daily, moisture_monthly, 'Moisture', '#7A9EEB', labels_daily, labels_monthly, "Average") }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card m-2 m-md-4">
+            <div class="card-body">
+                {{ macros.plant_data(temp_daily, temp_monthly, 'Temperature', '#F0695D', labels_daily, labels_monthly, "Average") }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card m-2 m-md-4">
+            <div class="card-body">
+                {{ macros.plant_data(humidity_daily, humidity_monthly, 'Humidity', '#62F0A1', labels_daily, labels_monthly, "Average") }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

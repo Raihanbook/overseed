@@ -1,0 +1,4 @@
+<div style="border-radius: 5px 5px 5px 5px; background: #f0f0f0; padding: 20px; text-align: center; font-family: 'Quicksand', sans-serif;">
+    <p>You have been invited to Overseed, to activate your account and set up you password, click the following button</p>
+    <a href="{{ url_for('accounts.reset_password', token=token, _external=True) }}" style="padding: .5rem 1rem; height: calc(1.5em + 1rem + 2px); width: 100%; border: 2px solid; border-color: #89BD90; border-radius: 1rem; background-color: #89BD90; color: white; text-decoration: none;">Set Password</a>
+</div>

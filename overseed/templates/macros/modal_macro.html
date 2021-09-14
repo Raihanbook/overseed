@@ -1,0 +1,49 @@
+{% macro modal_user_del(user) -%}
+    <!-- Modal -->
+    <div class="modal fade" id="{{'deleteModal' + user.id|string}}" tabindex="-1" role="dialog" aria-labelledby="{{'deleteModalLabel' + user.id|string}}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="{{'deleteModalLabel' + user.id|string}}">Delete user?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                After deleting this user, there may be no users monitoring any companies they were assigned to.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <form action="{{ url_for('admins.delete_user', user_id=user.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro modal_company_del(company) -%}
+    <!-- Modal -->
+    <div class="modal fade" id="{{'deleteModal' + company.id|string}}" tabindex="-1" role="dialog" aria-labelledby="{{'deleteModalLabel' + company.id|string}}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="{{'deleteModalLabel' + company.id|string}}">Delete company?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                Related plant(s) will also be deleted.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <form action="{{ url_for('supervisors.delete_company', company_id=company.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{%- endmacro %}

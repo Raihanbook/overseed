@@ -1,0 +1,150 @@
+{% macro text_field(field) -%}
+    <div class="form-group">
+        {{ field.label(class="form-control-label") }}
+        {% if field.errors %}
+            {{ field(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in field.errors %}
+                    <span>
+                        {{ error }}
+                    </span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ field(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+{% macro bool_field(field) -%}
+    <div class="form-group form-check">
+        {{ field(class="")}}
+
+        <!-- The <labels> are contained in this div so that the flex property 
+            of the form-check div can align them vertically. -->
+        <div>
+            <label class="checkmark" for="remember"></label> <!-- Used for the checkmark -->
+        </div>
+        <div>
+            {{ field.label(class="form-check-label")}}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro select_field(field) -%}
+    <div class="form-group">
+        {{ field.label(class="form-check-label") }}
+        {{ field(class="form-control form-control-lg") }}
+    </div>
+{%- endmacro %}
+
+{% macro file_field(field) -%}
+    <div class="form-group form-file">
+        {{ field.label(class="form-check-label") }}
+        {% if field.errors %}
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="icon" name="icon" required>
+                <label class="custom-file-label form-control form-control-lg is-invalid" for="icon">Choose file</label>
+                <div class="invalid-feedback file-feedback">
+                    {% for error in field.errors %}
+                        <span>
+                            {{ error }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="icon" name="icon" required>
+                <label class="custom-file-label form-control form-control-lg" for="icon">Choose file</label>
+            </div>
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+{% macro image_select_field(field) -%}
+    <div class="form-group">
+
+        {{ field.label(class="form-check-label") }}
+        <div class="row">
+            {% for choice in field.choices %}
+            <div class="col-6 col-md-4 col-xl-3 form-radio">                   
+                <input id="icon-{{ loop.index }}" name="icon" type="radio" value="{{ choice }}">
+                <img src="/static/icons/{{ choice }}" class="img-fluid radiomark" for="icon-{{ loop.index }}">
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if field.errors %}
+            <!-- {{ field(class="form-control form-control-lg is-invalid") }} -->
+            <div class="alert alert-danger">
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{%- endmacro %}
+
+{% macro plant_select_field(field) -%}
+    <div class="form-group">
+
+        {{ field.label(class="form-check-label") }}
+        <div class="row">
+            {% for plant in field.choices %}
+                <div class="col-12 form-radio">                   
+                    <input id="plant-{{ loop.index }}" name="plant" type="radio" value="{{ plant }}">
+                    <div class="radiomark">
+                        <img src="/static/icons/{{ plant.icon.health_1 }}" class="img-fluid col-4" for="plant-{{ loop.index }}">
+                        <div class="col-4 text-left">
+                            <h4>{{ plant.plant_type.name }}</h4>
+                        </div>
+                        <img src="/static/company_icons/{{ plant.company.icon }}" class="img-fluid col-4" for="plant-{{ loop.index }}">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if field.errors %}
+            <!-- {{ field(class="form-control form-control-lg is-invalid") }} -->
+            <div class="alert alert-danger">
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{%- endmacro %}
+
+{% macro assign_user_select_field(field, user) -%}
+    <div class="form-group">
+        <div class="row">
+            {% for company in field.choices %}
+                <div class="col-12 form-radio">                   
+                    {% if company in user.user_assignments %}
+                        <input id="company-{{ loop.index }}" name="companies" type="checkbox" value="{{ company }}" checked>
+                    {% else %}
+                        <input id="company-{{ loop.index }}" name="companies" type="checkbox" value="{{ company }}">
+                    {% endif %}
+                    <div class="radiomark">
+                        <img src="/static/company_icons/{{ company.icon }}" class="img-fluid col-4" for="company-{{ loop.index }}">
+                        <div class="col text-left">
+                            <h4>{{ company.name }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if field.errors %}
+            <!-- {{ field(class="form-control form-control-lg is-invalid") }} -->
+            <div class="alert alert-danger">
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{%- endmacro %}

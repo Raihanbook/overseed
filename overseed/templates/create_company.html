@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% import 'macros/form_macros.html' as macros %}
+{% from 'macros/utils_macros.html' import back_button %}
+{% block content %}
+<div class="row">
+
+
+    <div class="col text-center">
+
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+
+                        <div class="row">
+                            <div class="col-2">
+                                {{ back_button() }}
+                            </div>
+                            <div class="col">
+                                {# Legend (title) #}
+                                <legend class="mb-4">{{ title }}</legend>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+
+                        {# Name field #}
+                        {{ macros.text_field(form.name) }}
+
+                        {# Icon field #}
+                        {{ macros.file_field(form.icon) }}
+
+                        {# Address field #}
+                        {{ macros.text_field(form.address) }}
+
+                        {# Contact Email field #}
+                        {{ macros.text_field(form.contact_email) }}
+
+                        {# Phone Number field #}
+                        {{ macros.text_field(form.phone_number) }}
+
+                        {# Contact Name field #}
+                        {{ macros.text_field(form.contact_name) }}
+
+                        {# Notes field #}
+                        {{ macros.text_field(form.notes) }}
+
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="submit-button") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+        
+    </div>
+</div>
+{% endblock %}

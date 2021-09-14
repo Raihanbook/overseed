@@ -1,0 +1,40 @@
+# Release notes for Overseed Application
+
+# Caveats
+
+- All test data is very similar (we will work on providing more variety for full submission), this can mean plant reports don't show variety
+
+Please note that the Heroku password has an additional symbol at the end
+
+# Known Issues
+
+- The application is currently only using a hard coded API key for authentication this could be improved in the next version
+- Company deletion doesn't clear out our device setup properly. 
+- Heroku does not support static image uploads (as the file system is transient), this means uploaded images (for companies etc) may disappear the next time the server restarts (daily)
+- Back button will not always work in some pages
+
+# Release notes
+
+- Added company create and delete feature
+- Modified the test data to fit within 10,000 row limit and have enough to support marking window
+- Changed the way light average is calculated to a total light value
+- Added Postgres database support to the main client application
+- Fixed an issue with the way data dates where being displayed
+- Added Talsiman funcionality to ensure that all http requests are forced to https for security
+- Added user registration via email on first login to force password change
+- Added installation scripts to make installation a little easier
+- Show the user type on relevant pages so user understands their current credentials
+- Added test suite for unit testing
+- Added unit tests for all major functionality
+- Added a delete user page
+- Added back buttons to relevant pages
+- Setup email / forgotten password feature
+- Added assign users feature (to a company)
+- Ensured debug is no longer used on production (security issue)
+- Added custom error pages for 403, 404, 500 errors
+- Various cleanup of the applications unit
+- Fixed issue with the company icons not showing up when deployed 
+- Added plant reporting for daily and monthly reports
+- Added manage users page
+- Data required for determining good/bad ranges of data for plants has been added
+

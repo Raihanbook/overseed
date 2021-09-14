@@ -1,0 +1,42 @@
+{% from 'macros/form_macros.html' import assign_user_select_field %}
+{% from 'macros/utils_macros.html' import back_button %}
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+
+
+    <div class="col text-center">
+
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ assign_user_form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <div class="col-2">
+                                {{ back_button() }}
+                            </div>
+                            <div class="col">
+                                {# Legend (title) #}
+                                <legend class="mb-4">{{ title }}</legend>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+
+                        {# Company field #}
+                        {{ assign_user_select_field(assign_user_form.companies, selected_user) }}
+                    </fieldset>
+                    <div class="form-group">
+                        {{ assign_user_form.submit(class="submit-button") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+
+    </div>
+</div>
+{% endblock %}

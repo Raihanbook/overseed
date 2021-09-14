@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% import 'macros/form_macros.html' as macros %}
+{% from 'macros/utils_macros.html' import back_button %}
+{% block content %}
+<div class="row">
+
+
+    <div class="col text-center">
+
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+
+                        <div class="row">
+                            <div class="col-2">
+                                {{ back_button() }}
+                            </div>
+                            <div class="col">
+                                {# Legend (title) #}
+                                <legend class="mb-4">{{ title }}</legend>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+
+                        {# Type field #}
+                        {{ macros.text_field(form.type) }}
+
+                        {# Icon field #}
+                        {{ macros.image_select_field(form.icon) }}
+                        
+
+                        {# Company field #}
+                        {{ macros.select_field(form.company) }}
+
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="submit-button") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+        
+    </div>
+</div>
+{% endblock %}

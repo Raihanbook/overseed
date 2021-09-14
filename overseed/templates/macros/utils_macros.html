@@ -1,0 +1,10 @@
+{% macro back_button() -%}
+    <script>
+        document.write('<a class="float-left" href="' + document.referrer + '">');
+    </script>
+    <!-- BACK -->
+    <img class="img-fluid back-button" src="/static/icons/back_arrow.png" alt="Back">
+    <script>
+        document.write('</a>');
+    </script>
+{%- endmacro %}

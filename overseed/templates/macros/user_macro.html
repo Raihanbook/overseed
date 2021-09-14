@@ -1,0 +1,101 @@
+{% macro user_list(user, admin, current_user_id) -%}
+  {% if user.active == 0 %}
+    <div class="container card user-card mb-3 user-list-inactive">
+      <div class="row pt-1 pb-1">
+        <div class="col-12 col-md-6 mb-auto mt-auto">
+          <div>
+            <h4 class="user-name">{{ user.first_name }} {{ user.last_name }}</h4>
+          </div>
+          {% if user.privilege_id == 1 %}
+            <h5 class="user-privilege">ADMIN</h5>
+          {% elif user.privilege_id == 2 %}
+            <h5 class="user-privilege">SUPERVISOR</h5>
+          {% else %}
+            <h5 class="user-privilege">USER</h5>
+          {% endif %}
+
+          {% if user.privilege_id == 3 %}
+            <div class="row">
+              <div class="col-lg-6 text-center">
+                <a class="link" href="{{ url_for('supervisors.assign_user', user_id=user.id) }}">ASSIGN USER</a>
+              </div>
+            </div>
+          {% endif %}
+          </div>
+          <div class="col">
+            <div class="text-right company-logos">
+              {% for company in user.user_assignments %}
+                <img class="img-fluid" src="/static/company_icons/{{ company.icon }}" alt="" style="height: 75px;">
+              {% endfor %}
+            </div>
+            {% if admin %}
+            <div class="row">
+              <div class="col-lg-6">
+
+              </div>
+              {% if user.id == current_user_id %}
+                <div class="col-lg-6 text-center mb-2 mt-2">
+                  <!-- <a class="link mb-3" href="#">EDIT USER</a> -->
+                </div>
+              {% else %}
+                <div class="col-lg-6 text-center mb-2 mt-2">
+                  <!-- <a class="link mb-3" href="#">EDIT USER</a> -->
+                  <a class="link link-danger" href="#" data-toggle="modal" data-target="{{'#deleteModal' + user.id|string}}">DELETE USER</a>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container card user-card mb-3">
+      <div class="row pt-1 pb-1">
+        <div class="col-12 col-md-6 mb-auto mt-auto">
+          <div>
+            <h4 class="user-name">{{ user.first_name }} {{ user.last_name }}</h4>
+          </div>
+          {% if user.privilege_id == 1 %}
+            <h5 class="user-privilege">ADMIN</h5>
+          {% elif user.privilege_id == 2 %}
+            <h5 class="user-privilege">SUPERVISOR</h5>
+          {% else %}
+            <h5 class="user-privilege">USER</h5>
+          {% endif %}
+
+          {% if user.privilege_id == 3 %}
+            <div class="row">
+              <div class="col-lg-6 text-center">
+                <a class="link" href="{{ url_for('supervisors.assign_user', user_id=user.id) }}">ASSIGN USER</a>
+              </div>
+            </div>
+          {% endif %}
+          </div>
+          <div class="col">
+            <div class="text-right company-logos">
+              {% for company in user.user_assignments %}
+                <img class="img-fluid" src="/static/company_icons/{{ company.icon }}" alt="" style="height: 75px;">
+              {% endfor %}
+            </div>
+            {% if admin %}
+            <div class="row">
+              <div class="col-lg-6">
+
+              </div>
+              {% if user.id == current_user_id %}
+                <div class="col-lg-6 text-center mb-2 mt-2">
+                  <!-- <a class="link mb-3" href="#">EDIT USER</a> -->
+                </div>
+              {% else %}
+                <div class="col-lg-6 text-center mb-2 mt-2">
+                  <!-- <a class="link mb-3" href="#">EDIT USER</a> -->
+                  <a class="link link-danger" href="#" data-toggle="modal" data-target="{{'#deleteModal' + user.id|string}}">DELETE USER</a>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+  {% endif %}
+{%- endmacro %}

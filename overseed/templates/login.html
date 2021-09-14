@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% import 'macros/form_macros.html' as macros %}
+{% block content %}
+<div class="row">
+
+
+    <div class="col text-center">
+
+    </div>
+    <div class="col-12 col-lg-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+
+                        {# Legend (title) #}
+                        <legend class="mb-4">{{ title }}</legend>
+
+                        {# Email field #}
+                        {{ macros.text_field(form.email) }}
+
+                        {# Password field #}
+                        {{ macros.text_field(form.password) }}
+
+                        {# Remember Me checkmark #}
+                        {{ macros.bool_field(form.remember) }}
+
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="submit-button") }}
+                    </div>
+                </form>
+                <div>
+                    <small class="text-muted">
+                        Forgot Password? <a href="{{ url_for('accounts.reset_pass_request') }}">Reset Password</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+        
+    </div>
+</div>
+
+
+{% endblock %}

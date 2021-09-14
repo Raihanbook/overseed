@@ -1,0 +1,24 @@
+{% macro company_list(company) -%}
+
+<div class="container mb-3">
+    <div class="row pt-1 pb-1">
+        <div class="col-7 col-md-5 col-lg-4 mb-auto mt-auto">
+            <div>
+                <h4 class="company-name">{{ company.name }}</h4>
+            </div>
+            <div class="text-center">
+                <a class="link link-danger mt-3" href="#" data-toggle="modal" data-target="{{'#deleteModal' + company.id|string}}">DELETE COMPANY</a>
+            </div>
+        </div>
+        <div class="col-5 col-md-7 col-lg-8 mt-auto mb-auto">
+            <div class="row">
+                <div class="col-0 col-md-6 col-lg-8"></div>
+                <div class="col">
+                    <img class="img-fluid" src="/static/company_icons/{{ company.icon }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%- endmacro %}

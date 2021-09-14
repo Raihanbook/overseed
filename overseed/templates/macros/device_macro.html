@@ -1,0 +1,23 @@
+{% macro device_list(device) -%}
+    <div class="container mb-3 card" data-company-name="{{ device.plant.company.name }}">
+        <div class="row pt-1 pb-1">
+            <div class="col-7 col-md-4 mb-auto mt-auto">
+                <div>
+                    <h4>{{ device.hardware_id }}</h4>
+                    <h5>{{ device.description }}</h5>
+                </div>
+            </div>
+            <div class="col-5 col-md-8 mt-auto mb-auto">
+                <div class="row">
+                    <div class="col-0 col-lg-4 col-xl-6"></div>
+                    <div class="col-md col-sm-12 text-center mb-auto mt-auto">
+                        <a class="link mb-auto mt-auto" href="{{ url_for('users.plant', plantID=device.plant.id) }}">VIEW PLANT</a>
+                    </div>
+                    <div class="col">
+                        <img src="/static/company_icons/{{ device.plant.company.icon }}" class='img-fluid'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

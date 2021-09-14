@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+
+
+    <div class="col text-center">
+
+    </div>
+    <div class="col-12 col-lg-8 text-center">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="error-message">Oops!</h1>
+                <h2>Looks like that page doesn't exist.</h2>
+                {% if current_user.is_authenticated %}
+                    <p>Lost? <a href="{{ url_for('main.home') }}">Go Home</a></p>
+                {% else %}
+                    <p>Try logging in: <a href="{{ url_for('accounts.login') }}">Login</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+        
+    </div>
+</div>
+
+
+{% endblock %}

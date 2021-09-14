@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {# Required meta tags #}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {# Bootstrap CSS #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    {# Our CSS #}
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {# Quicksand Font #}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
+    {# Chart.js script #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {# Favicon #}
+    <link rel="icon" href="/static/favicon.ico">
+
+    {# If a title has been provided by the render_template function, it is appended to Overseed.
+    Otherwise, we just use Overseed on its own. #}
+    {% if title %}
+        <title>Overseed - {{ title }}</title>
+    {% else %}
+        <title>Overseed</title>
+    {% endif %}
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        {% if current_user.is_authenticated and current_user.privilege_id == 1 %}
+            <a>ADMIN</a>
+            <a>Logged in as {{ current_user.first_name }}</a>
+            <a class="nav-link" href="{{ url_for('supervisors.plants_list') }}">MANAGE PLANTS</a>
+            <a class="nav-link" href="{{ url_for('supervisors.devices_list') }}">MANAGE DEVICES</a>
+            <a class="nav-link" href="{{ url_for('supervisors.companies_list') }}">MANAGE COMPANIES</a>
+            <a class="nav-link" href="{{ url_for('supervisors.account_list') }}">MANAGE USERS</a>
+            <a class="nav-link" href="{{ url_for('accounts.logout') }}">LOGOUT</a>
+        {% elif current_user.is_authenticated and current_user.privilege_id == 2 %}
+            <a>SUPERVISOR</a>
+            <a>Logged in as {{ current_user.first_name }}</a>
+            <a class="nav-link" href="{{ url_for('supervisors.plants_list') }}">MANAGE PLANTS</a>
+            <a class="nav-link" href="{{ url_for('supervisors.devices_list') }}">MANAGE DEVICES</a>
+            <a class="nav-link" href="{{ url_for('supervisors.companies_list') }}">MANAGE COMPANIES</a>
+            <a class="nav-link" href="{{ url_for('supervisors.account_list') }}">MANAGE USERS</a>
+            <a class="nav-link" href="{{ url_for('accounts.logout') }}">LOGOUT</a>
+        {% elif current_user.is_authenticated and current_user.privilege_id == 3 %}
+            <a>USER</a>
+            <a>Logged in as {{ current_user.first_name }}</a>
+            <a class="nav-link" href="{{ url_for('users.plants_list') }}">MANAGE PLANTS</a>
+            <a class="nav-link" href="{{ url_for('accounts.logout') }}">LOGOUT</a>
+        {% else %}
+            <a class="nav-link" href="{{ url_for('accounts.login') }}">LOGIN</a>
+            <a class="nav-link" href="{{ url_for('accounts.reset_pass_request') }}">RESET PASSWORD</a>
+        {% endif %}
+    </div>
+
+    <header class="mb-4">
+        <nav class="navbar navbar-expand-lg bg-green">
+            {# Logo/name #}
+            <div class="col-8 col-sm-6 col-md-4">
+                <a class="overseed-logo" href="{{ url_for('main.home') }}">
+                    <img src="/static/icons/overseed_logo.png" class="logo">
+                    OVERSEED
+                </a>
+            </div>
+
+            {# Use any element to open the sidenav #}
+            <div class="col text-right">
+                <button class="btn" onclick="openNav()">
+                    &#9776;
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container main-content">
+        {# Flashed messages are displayed using the following code block. #}
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {# All other page content starts here #}
+        {% block content %}{% endblock %} 
+        {# All other page content ends here #}
+    </div>
+
+    <nav class="navbar fixed-bottom bg-green">
+        <div class="col text-center">
+            <p>&#169; Overseed</p>
+        </div>
+    </nav>
+    
+    {# Not sure which of the below scripts are necessary for all functions, at a minimum I think we need the Bootstrap script #}
+    
+    {# Optional JavaScript #}
+    {# jQuery first, then Popper.js, then Bootstrap JS #}
+    <script type="application/x-javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="application/x-javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script type="application/x-javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="application/x-javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

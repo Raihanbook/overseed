@@ -1,0 +1,16 @@
+# Database management information
+
+Please see the document "#24 - Installation Instructions.docx" for a more complete overview
+of how to install the databases.
+
+Overseed API uses the Flask SQLAlchemy package to simplify the interface with any underlying database.
+
+By default, when running locally, the API uses a local SQLite database file. The SQLite interface is
+installed through using the installation scripts provided with the application.
+
+The Flask-SQLAlchemy version is 2.4.4
+The SQL-Alchemy version is 1.3.23
+
+NOTE: when operating locally, the data is stored in an SQLite database. On Heroku, this
+is stored in a Postgres database. However, this is transparent to the end user as the
+Flask ORM abstracts this difference.

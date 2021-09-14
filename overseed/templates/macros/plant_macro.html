@@ -1,0 +1,177 @@
+{% macro plant_list(plant, plant_error) -%}
+<div class="plant-card">
+    {% if plant_error['error_level'] == 'healthy' %}
+    <div class="container plant-list-healthy mb-3">
+    {% elif plant_error['error_level'] == 'alert' %}
+    <div class="container plant-list-alert mb-3">
+    {% elif plant_error['error_level'] == 'danger' %}
+    <div class="container plant-list-danger mb-3">
+    {% else %}
+    <div class="container plant-list-healthy mb-3">
+    {% endif %}
+        <div class="row pt-1 pb-1">
+            <div class="col-7 col-lg-3 mb-auto mt-auto">
+                <div>
+                    <h4>{{ plant.plant_type.name }}</h4>
+                </div>
+                <div>
+                    <h5>{{ plant.device.description }}</h5>
+                </div>
+                <div class="text-center">
+                    <a class="link" href="{{ url_for('users.plant', plantID=plant.id) }}">VIEW PLANT</a>
+                </div>
+                <div class="mt-1">
+                    {% for error in plant_error['error_messages'] %}
+                        <h5>{{ error }}</h5>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-5 col-lg-9 mt-auto mb-auto">
+                <div class="row">
+                    <div class="col-0 col-lg-6">
+                        
+                    </div>
+                    <div class="col-12 col-sm-8 col-lg-4 m-auto pl-0 pr-0">
+                        {{ plantOverlay(plant_error['error_level'], plant, plant_error['error_image'])}}
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2 mt-auto ml-auto pl-0 pr-1 plant-company">
+                        <img class="img-fluid" alt="{{ plant.company.name }}" src="/static/company_icons/{{ plant.company.icon }}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro plantOverlay(status, plant, errorIcon) -%}
+<div class="row">
+    {% if status == 'danger' %}
+        <img src="/static/icons/{{ plant.icon.health_3 }}" class='img-fluid underlay'>
+        <img src="/static/icons/{{ errorIcon }}" class='img-fluid overlay'>
+    {% elif status == 'alert' %}
+        <img src="/static/icons/{{ plant.icon.health_2 }}" class='img-fluid underlay'>
+        <img src="/static/icons/{{ errorIcon }}" class='img-fluid overlay'>
+    {% else %}
+        <img src="/static/icons/{{ plant.icon.health_1 }}" class='img-fluid underlay'>
+    {% endif %}
+</div>
+{%- endmacro %}
+
+{% macro plant_data(args_daily, args_monthly, name, color, labels_daily, labels_monthly, prefix) -%}
+
+    <h3>{{ name }}</h3>
+
+    <canvas id="{{ name }}-daily" width="400" height="250"></canvas>
+    <canvas id="{{ name }}-monthly" width="400" height="250"></canvas>
+    <script>
+      document.getElementById('{{ name }}-monthly').style.display = "none";
+
+      var ctxDaily = document.getElementById('{{ name }}-daily').getContext('2d');
+      var ctxMonthly = document.getElementById('{{ name }}-monthly').getContext('2d');
+      var {{name}}Daily = new Chart(ctxDaily, {
+          type: 'line',
+          data: {
+              labels: {{ labels_daily | safe }},
+              datasets: [{
+                  label: '{{ name }}',
+                  data: {{ args_daily }},
+                  borderWidth: 3,
+                  borderColor: '{{ color }}',
+                  cubicInterpolationMode: 'monotone',
+                  tension: 0.4
+              }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      display: false
+                  },
+                  tooltip: {
+                      enabled: true
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      grid: {
+                          color: '#89BD9099'
+                      },
+                      ticks: {
+                          color: '#66916EFF'
+                      }
+                  },
+                  x: {
+                      grid: {
+                          color: '#89BD9099'
+                      },
+                      ticks: {
+                          color: '#66916EFF'
+                      }
+                  }
+              }
+          },
+          type: 'line'
+      });
+      var {{name}}Monthly = new Chart(ctxMonthly, {
+          type: 'line',
+          data: {
+              labels: {{ labels_monthly | safe }},
+              datasets: [{
+                  label: '{{ prefix }} {{ name }}',
+                  data: {{ args_monthly }},
+                  borderWidth: 3,
+                  borderColor: '{{ color }}',
+                  cubicInterpolationMode: 'monotone',
+                  tension: 0.4
+              }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      display: false
+                  },
+                  tooltip: {
+                      enabled: true
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      grid: {
+                          color: '#89BD9099'
+                      },
+                      ticks: {
+                          color: '#66916EFF'
+                      }
+                  },
+                  x: {
+                      grid: {
+                          color: '#89BD9099'
+                      },
+                      ticks: {
+                          color: '#66916EFF'
+                      }
+                  }
+              }
+          },
+          type: 'line'
+      });
+
+      function update(display, remove) {
+        document.getElementById(display).style.display = "block";
+        document.getElementById(remove).style.display = "none";
+
+        document.getElementById(display+"-button").classList.add("link-selected")
+        document.getElementById(remove+"-button").classList.remove("link-selected")
+      }
+    </script>
+    <div class="row mt-4">
+        <div class="col">
+            <button id="{{ name }}-monthly-button" class="link mb-2" onclick="update('{{ name }}-monthly', '{{ name }}-daily')">Monthly</button>
+        </div>
+        <div class="col">
+            <button id="{{ name }}-daily-button" class="link link-selected" onclick="update('{{ name }}-daily', '{{ name }}-monthly')">Daily</button>
+        </div>
+    </div>
+{%- endmacro %}

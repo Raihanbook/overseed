@@ -1,0 +1,39 @@
+{% from 'macros/user_macro.html' import user_list %}
+{% from 'macros/modal_macro.html' import modal_user_del %}
+
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 m-auto">
+                <h3 class="page-title text-center">{{ title }}</h3>
+            </div>
+
+            <div class="col-sm-6 col-lg-9 m-auto">
+                <div class="row">
+                    {% if admin %}
+                        <div class="col-lg-2 mb-2 mb-lg-0"></div>
+                    {% else %}
+                        <div class="col-lg-6 mb-2 mb-lg-0"></div>
+                    {% endif %}
+                    <div class="col-lg-6 mb-2 mb-lg-0">
+                        <input type="text" class="form-control form-control-lg" id="myInput" onkeyup="userFilterByName()" placeholder="Filter by name">
+                    </div>
+                    {% if admin %}
+                        <div class="col-lg-4 mb-2 mb-lg-0 text-center">
+                            <a class="link" href="{{ url_for('admins.create_user') }}">ADD USER</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="all-account-list">
+        {% for user in users %}
+            {{ user_list(user, admin, current_user_id) }}
+            {{ modal_user_del(user) }}
+        {% endfor %}
+    </div>
+{% endblock %}
